@@ -72,8 +72,17 @@ If you are going to use the **Bon_appetit** Splunk app, the **TA_Appetite** woul
 
 A [docker container](../Dockerfile) can be created with prerequisites and appetite setup for use.
 
-    docker build -t appetite_server .
-    docker run --rm -ti appetite_server
+Build appetite server and run
+
+    docker build -t appetite_server . && docker run -d --name appetite_server appetite_server
+    
+While it runs, watch the logs.  Build is done when you see **"Finished processing dependencies for appetite"**
+
+	watch -n2 "docker logs --tail 10 appetite_server"
+
+Execute bash shell
+
+	docker exec -it appetite_server bash
 
 The all configurations and keys located within the appetite directory would be copied too.  Since there is customization required to the configurations before running appetite, the [scheduling](#scheduled) is done manually.
 
